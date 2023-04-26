@@ -27,7 +27,33 @@ int main(void)
 	Submarine.setStatus(placeSubmarine(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
 	Destroyer.setStatus(placeDestroyer(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
 
-	//add opponents ship generation
+	
+	callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+	sf::Font font;
+	font.loadFromFile("MachineStd.otf");
+	sf::Text title;
+	title.setFont(font);
+	title.setString("Spawning opponents ships. . .");
+	title.setFillColor(sf::Color::White);
+	title.setCharacterSize(40);
+	title.setPosition(360, 620);
+	window.draw(title);
+	window.display();
+
+	Ship opponentShips[5] =
+	{
+		Ship(sf::Vector2f(30, 230), sf::Vector2f(660, 110)),
+		Ship(sf::Vector2f(30, 180), sf::Vector2f(660, 110)),
+		Ship(sf::Vector2f(30, 130), sf::Vector2f(660, 110)),
+		Ship(sf::Vector2f(30, 130), sf::Vector2f(660, 110)),
+		Ship(sf::Vector2f(30, 80), sf::Vector2f(660, 110))
+	};
+	for (int i = 0; i < 5; i++)
+		opponentShips[i].setFillColor(sf::Color::Black);
+
+	spawnOpponentShips(opponentShips);
+
+
 	while (window.isOpen())
 	{
 		//game
@@ -39,6 +65,8 @@ int main(void)
 
 
 		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+		for (int i = 0; i < 5; i++)
+			window.draw(opponentShips[i]);
 		window.display();
 	}
 }
