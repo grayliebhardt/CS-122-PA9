@@ -30,13 +30,14 @@ int main(void)
 	missShipTexture.loadFromFile("missTarget.png");
 	missShip.setTexture(&missShipTexture);
 
-	//Set ship status and brings background
-	callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
-	Carrier.setStatus(placeCarrier(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
-	Battleship.setStatus(placeBattleship(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
-	Cruiser.setStatus(placeCruiser(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
-	Submarine.setStatus(placeSubmarine(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
-	Destroyer.setStatus(placeDestroyer(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
+	//Set ship status and brings background, ships need shot types for callbackground function
+	callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShip, missShip);
+	Carrier.setStatus(placeCarrier(targetShot, hitShip, missShip, Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
+	Battleship.setStatus(placeBattleship(targetShot, hitShip, missShip, Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
+	Cruiser.setStatus(placeCruiser(targetShot, hitShip, missShip, Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
+	Submarine.setStatus(placeSubmarine(targetShot, hitShip, missShip, Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
+	Destroyer.setStatus(placeDestroyer(targetShot, hitShip, missShip, Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
+	targetShot.setShotStatus(placeShot(targetShot, hitShip, missShip, Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
 	
 	//example shot, needs opponents ships as inputs instead of own ships
 	targetShot.setShotStatus(placeShot(targetShot, hitShip, missShip, Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
@@ -79,7 +80,7 @@ int main(void)
 		}
 
 
-		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShip, missShip);
 		for (int i = 0; i < 5; i++)
 			window.draw(opponentShips[i]);
 		window.display();
