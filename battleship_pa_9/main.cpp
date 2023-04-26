@@ -21,6 +21,14 @@ int main(void)
 	Submarine.setTexture(&subTexture);
 	desTexture.loadFromFile("destroyer.png");
 	Destroyer.setTexture(&desTexture);
+	
+	//shot textures
+	targetShotTexture.loadFromFile("crosshairs.png");
+	targetShot.setTexture(&targetShotTexture);
+	hitShipTexture.loadFromFile("hitTarget.png");
+	hitShip.setTexture(&hitShipTexture);
+	missShipTexture.loadFromFile("missTarget.png");
+	missShip.setTexture(&missShipTexture);
 
 	//Set ship status and brings background
 	callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
