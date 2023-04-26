@@ -9,13 +9,11 @@ public:
 	{
 		this->setPosition(newPos);
 		loaded = false;
-		sunk = false;
 	}
 	bool getStatus();			//Getter
 	void setStatus(bool load);		//Setter
 private:
 	bool loaded;				//Status of ship loading
-	bool sunk;				//Variable to check if shi[ is sunk
 };
 
 typedef enum shot {				//Shot result options
@@ -48,3 +46,5 @@ bool placeDestroyer(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submar
 void spawnOpponentShips(Ship opponentships[]);
 void placeSingleOpponentShip(Ship& ship);
 bool placeShot(Shot& targetShot, Shot& missShot, Shot& hitShot, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background);
+
+void gameWrapper(void);
