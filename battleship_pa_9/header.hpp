@@ -9,11 +9,13 @@ public:
 	{
 		this->setPosition(newPos);
 		loaded = false;
+		sunk = false;
 	}
 	bool getStatus();			//Getter
 	void setStatus(bool load);		//Setter
 private:
 	bool loaded;				//Status of ship loading
+	bool sunk;
 };
 
 typedef enum shot {				//Shot result options
