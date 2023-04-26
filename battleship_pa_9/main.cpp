@@ -3,28 +3,42 @@
 int main(void)
 {
 	sf::RenderWindow window(sf::VideoMode(1200, 800), "Battleship");
-	Ship Carrier(sf::Vector2f(30, 230), sf::Vector2f(60, 110), sf::Color(0, 0, 0)), Battleship(sf::Vector2f(30, 180), sf::Vector2f(60, 110), sf::Color(50,50,50)), Cruiser(sf::Vector2f(30, 130), sf::Vector2f(60, 110), sf::Color(100, 100, 100)), Submarine(sf::Vector2f(30, 130), sf::Vector2f(60, 110), sf::Color(150, 150, 150)), Destroyer(sf::Vector2f(30, 80), sf::Vector2f(60, 110), sf::Color(200, 200, 200));
+	Ship Carrier(sf::Vector2f(30, 230), sf::Vector2f(60, 110)), Battleship(sf::Vector2f(30, 180), sf::Vector2f(60, 110)), Cruiser(sf::Vector2f(30, 130), sf::Vector2f(60, 110)), Submarine(sf::Vector2f(30, 130), sf::Vector2f(60, 110)), Destroyer(sf::Vector2f(30, 80), sf::Vector2f(60, 110));
 	sf::Event event;
-	while (window.pollEvent(event))
-	{
-		if (event.type == sf::Event::Closed)
-			window.close();
-	}
-	callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer);
-	Carrier.setStatus(placeCarrier(Carrier, Battleship, Cruiser, Submarine, Destroyer, window));
-	Battleship.setStatus(placeBattleship(Carrier, Battleship, Cruiser, Submarine, Destroyer, window));
-	Cruiser.setStatus(placeCruiser(Carrier, Battleship, Cruiser, Submarine, Destroyer, window));
-	Submarine.setStatus(placeSubmarine(Carrier, Battleship, Cruiser, Submarine, Destroyer, window));
-	Destroyer.setStatus(placeDestroyer(Carrier, Battleship, Cruiser, Submarine, Destroyer, window));
+	sf::Texture carTexture, batTexture, cruTexture, subTexture, desTexture;
+	sf::Texture ocean;
+	ocean.loadFromFile("ocean.jpg");
+	sf::Sprite background(ocean);
+	carTexture.loadFromFile("carrier.png");
+	Carrier.setTexture(&carTexture);
+	batTexture.loadFromFile("battleship.png");
+	Battleship.setTexture(&batTexture);
+	cruTexture.loadFromFile("cruiser.png");
+	Cruiser.setTexture(&cruTexture);
+	subTexture.loadFromFile("submarine.png");
+	Submarine.setTexture(&subTexture);
+	desTexture.loadFromFile("destroyer.png");
+	Destroyer.setTexture(&desTexture);
+
+	callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+	Carrier.setStatus(placeCarrier(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
+	Battleship.setStatus(placeBattleship(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
+	Cruiser.setStatus(placeCruiser(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
+	Submarine.setStatus(placeSubmarine(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
+	Destroyer.setStatus(placeDestroyer(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
 
 	//add opponents ship generation
 	while (window.isOpen())
 	{
 		//game
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
 
 
-
-		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer);
+		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
 		window.display();
 	}
 }

@@ -9,11 +9,8 @@ void Ship::setStatus(bool load)
 	loaded = load;
 }
 
-void callbackground(sf::RenderWindow& window, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer)
+void callbackground(sf::RenderWindow& window, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::Sprite background)
 {
-	sf::Texture ocean;
-	ocean.loadFromFile("ocean.jpg");
-	sf::Sprite background(ocean);
 	sf::Color backgroundcolor(110, 156, 230);
 	sf::Text letter, number;
 	sf::Font font;
@@ -122,7 +119,7 @@ void callbackground(sf::RenderWindow& window, Ship& Carrier, Ship& Battleship, S
 }
 
 
-bool placeCarrier(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window)
+bool placeCarrier(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
 	font.loadFromFile("MachineStd.otf");
@@ -139,67 +136,68 @@ bool placeCarrier(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarin
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			if(Carrier.getGlobalBounds().left + Carrier.getGlobalBounds().width + 50 < 550)
-				Carrier.move(50, 0);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			if (Carrier.getGlobalBounds().top - 50 > 100)
-				Carrier.move(0, -50);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			if (Carrier.getGlobalBounds().left - 50 > 50)
-				Carrier.move(-50, 0);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			if (Carrier.getGlobalBounds().top + Carrier.getGlobalBounds().height + 50 < 600)
-				Carrier.move(0, 50);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		{
-			if (Carrier.getGlobalBounds().height > Carrier.getGlobalBounds().width)
+			if (event.type == sf::Event::KeyPressed)
 			{
-				if (Carrier.getGlobalBounds().left + Carrier.getGlobalBounds().height < 550)
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				{
-					Carrier.setRotation(-90.f);
-					Carrier.move(0, 30);
+					if (Carrier.getGlobalBounds().left + Carrier.getGlobalBounds().width + 50 < 550)
+						Carrier.move(50, 0);
 				}
-				else
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 				{
-					Carrier.setRotation(-90.f);
-					Carrier.move(-200, 30);
+					if (Carrier.getGlobalBounds().top - 50 > 100)
+						Carrier.move(0, -50);
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+				{
+					if (Carrier.getGlobalBounds().left - 50 > 50)
+						Carrier.move(-50, 0);
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+				{
+					if (Carrier.getGlobalBounds().top + Carrier.getGlobalBounds().height + 50 < 600)
+						Carrier.move(0, 50);
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				{
+					if (Carrier.getGlobalBounds().height > Carrier.getGlobalBounds().width)
+					{
+						if (Carrier.getGlobalBounds().left + Carrier.getGlobalBounds().height < 550)
+						{
+							Carrier.setRotation(-90.f);
+							Carrier.move(0, 30);
+						}
+						else
+						{
+							Carrier.setRotation(-90.f);
+							Carrier.move(-200, 30);
+						}
+					}
+					else
+					{
+						if (Carrier.getGlobalBounds().top + Carrier.getGlobalBounds().width < 600)
+						{
+							Carrier.setRotation(0.f);
+							Carrier.move(0, -30);
+						}
+						else
+						{
+							Carrier.setRotation(0.f);
+							Carrier.move(0, -230);
+						}
+					}
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				{
+					callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+					window.draw(Carrier);
+					window.draw(instructions);
+					window.display();
+					return true;
 				}
 			}
-			else
-			{
-				if (Carrier.getGlobalBounds().top + Carrier.getGlobalBounds().width < 600)
-				{
-					Carrier.setRotation(0.f);
-					Carrier.move(0, -30);
-				}
-				else
-				{
-					Carrier.setRotation(0.f);
-					Carrier.move(0, -230);
-				}
-			}
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		{
-			callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer);
-			window.draw(Carrier);
-			window.draw(instructions);
-			window.display();
-			return true;
-		}
-	
-		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer);
+		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
 		window.draw(Carrier);
 		window.draw(instructions);
 		window.display();
@@ -207,7 +205,7 @@ bool placeCarrier(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarin
 	}
 	return false;
 }
-bool placeBattleship(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window)
+bool placeBattleship(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
 	font.loadFromFile("MachineStd.otf");
@@ -224,72 +222,74 @@ bool placeBattleship(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Subma
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			if (Battleship.getGlobalBounds().left + Battleship.getGlobalBounds().width + 50 < 550)
-				Battleship.move(50, 0);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			if (Battleship.getGlobalBounds().top - 50 > 100)
-				Battleship.move(0, -50);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			if (Battleship.getGlobalBounds().left - 50 > 50)
-				Battleship.move(-50, 0);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			if (Battleship.getGlobalBounds().top + Battleship.getGlobalBounds().height + 50 < 600)
-				Battleship.move(0, 50);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		{
-			if (Battleship.getGlobalBounds().height > Battleship.getGlobalBounds().width)
+			if (event.type == sf::Event::KeyPressed)
 			{
-				if (Battleship.getGlobalBounds().left + Battleship.getGlobalBounds().height < 550)
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				{
-					Battleship.setRotation(-90.f);
-					Battleship.move(0, 30);
+					if (Battleship.getGlobalBounds().left + Battleship.getGlobalBounds().width + 50 < 550)
+						Battleship.move(50, 0);
 				}
-				else
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 				{
-					Battleship.setRotation(-90.f);
-					Battleship.move(-200, 30);
+					if (Battleship.getGlobalBounds().top - 50 > 100)
+						Battleship.move(0, -50);
 				}
-			}
-			else
-			{
-				if (Battleship.getGlobalBounds().top + Battleship.getGlobalBounds().width < 600)
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 				{
-					Battleship.setRotation(0.f);
-					Battleship.move(0, -30);
+					if (Battleship.getGlobalBounds().left - 50 > 50)
+						Battleship.move(-50, 0);
 				}
-				else
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 				{
-					Battleship.setRotation(0.f);
-					Battleship.move(0, -180);
+					if (Battleship.getGlobalBounds().top + Battleship.getGlobalBounds().height + 50 < 600)
+						Battleship.move(0, 50);
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				{
+					if (Battleship.getGlobalBounds().height > Battleship.getGlobalBounds().width)
+					{
+						if (Battleship.getGlobalBounds().left + Battleship.getGlobalBounds().height < 550)
+						{
+							Battleship.setRotation(-90.f);
+							Battleship.move(0, 30);
+						}
+						else
+						{
+							Battleship.setRotation(-90.f);
+							Battleship.move(-200, 30);
+						}
+					}
+					else
+					{
+						if (Battleship.getGlobalBounds().top + Battleship.getGlobalBounds().width < 600)
+						{
+							Battleship.setRotation(0.f);
+							Battleship.move(0, -30);
+						}
+						else
+						{
+							Battleship.setRotation(0.f);
+							Battleship.move(0, -180);
+						}
+					}
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				{
+					if (Battleship.getGlobalBounds().intersects(Carrier.getGlobalBounds()))
+					{
+						instructions.setString("Use the arrow keys to position your Battleship, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your battleship.");
+					}
+					else {
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+						window.draw(Battleship);
+						window.draw(instructions);
+						window.display();
+						return true;
+					}
 				}
 			}
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		{
-			if (Battleship.getGlobalBounds().intersects(Carrier.getGlobalBounds()))
-			{
-				instructions.setString("Use the arrow keys to position your Battleship, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your battleship.");
-			}
-			else {
-				callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer);
-				window.draw(Battleship);
-				window.draw(instructions);
-				window.display();
-				return true;
-			}
-		}
-
-		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer);
+		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
 		window.draw(Battleship);
 		window.draw(instructions);
 		window.display();
@@ -298,7 +298,7 @@ bool placeBattleship(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Subma
 	return false;
 }
 
-bool placeCruiser(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window)
+bool placeCruiser(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
 	font.loadFromFile("MachineStd.otf");
@@ -315,72 +315,74 @@ bool placeCruiser(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarin
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			if (Cruiser.getGlobalBounds().left + Cruiser.getGlobalBounds().width + 50 < 550)
-				Cruiser.move(50, 0);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			if (Cruiser.getGlobalBounds().top - 50 > 100)
-				Cruiser.move(0, -50);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			if (Cruiser.getGlobalBounds().left - 50 > 50)
-				Cruiser.move(-50, 0);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			if (Cruiser.getGlobalBounds().top + Cruiser.getGlobalBounds().height + 50 < 600)
-				Cruiser.move(0, 50);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		{
-			if (Cruiser.getGlobalBounds().height > Cruiser.getGlobalBounds().width)
+			if (event.type == sf::Event::KeyPressed)
 			{
-				if (Cruiser.getGlobalBounds().left + Cruiser.getGlobalBounds().height < 550)
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				{
-					Cruiser.setRotation(-90.f);
-					Cruiser.move(0, 30);
+					if (Cruiser.getGlobalBounds().left + Cruiser.getGlobalBounds().width + 50 < 550)
+						Cruiser.move(50, 0);
 				}
-				else
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 				{
-					Cruiser.setRotation(-90.f);
-					Cruiser.move(-200, 30);
+					if (Cruiser.getGlobalBounds().top - 50 > 100)
+						Cruiser.move(0, -50);
 				}
-			}
-			else
-			{
-				if (Cruiser.getGlobalBounds().top + Cruiser.getGlobalBounds().width < 600)
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 				{
-					Cruiser.setRotation(0.f);
-					Cruiser.move(0, -30);
+					if (Cruiser.getGlobalBounds().left - 50 > 50)
+						Cruiser.move(-50, 0);
 				}
-				else
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 				{
-					Cruiser.setRotation(0.f);
-					Cruiser.move(0, -130);
+					if (Cruiser.getGlobalBounds().top + Cruiser.getGlobalBounds().height + 50 < 600)
+						Cruiser.move(0, 50);
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				{
+					if (Cruiser.getGlobalBounds().height > Cruiser.getGlobalBounds().width)
+					{
+						if (Cruiser.getGlobalBounds().left + Cruiser.getGlobalBounds().height < 550)
+						{
+							Cruiser.setRotation(-90.f);
+							Cruiser.move(0, 30);
+						}
+						else
+						{
+							Cruiser.setRotation(-90.f);
+							Cruiser.move(-200, 30);
+						}
+					}
+					else
+					{
+						if (Cruiser.getGlobalBounds().top + Cruiser.getGlobalBounds().width < 600)
+						{
+							Cruiser.setRotation(0.f);
+							Cruiser.move(0, -30);
+						}
+						else
+						{
+							Cruiser.setRotation(0.f);
+							Cruiser.move(0, -130);
+						}
+					}
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				{
+					if (Cruiser.getGlobalBounds().intersects(Carrier.getGlobalBounds()) || Cruiser.getGlobalBounds().intersects(Battleship.getGlobalBounds()))
+					{
+						instructions.setString("Use the arrow keys to position your Cruiser, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your Cruiser.");
+					}
+					else {
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+						window.draw(Cruiser);
+						window.draw(instructions);
+						window.display();
+						return true;
+					}
 				}
 			}
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		{
-			if (Cruiser.getGlobalBounds().intersects(Carrier.getGlobalBounds()) || Cruiser.getGlobalBounds().intersects(Battleship.getGlobalBounds()))
-			{
-				instructions.setString("Use the arrow keys to position your Cruiser, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your Cruiser.");
-			}
-			else {
-				callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer);
-				window.draw(Cruiser);
-				window.draw(instructions);
-				window.display();
-				return true;
-			}
-		}
-
-		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer);
+		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
 		window.draw(Cruiser);
 		window.draw(instructions);
 		window.display();
@@ -389,7 +391,7 @@ bool placeCruiser(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarin
 	return false;
 }
 
-bool placeSubmarine(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window)
+bool placeSubmarine(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
 	font.loadFromFile("MachineStd.otf");
@@ -406,72 +408,74 @@ bool placeSubmarine(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submar
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			if (Submarine.getGlobalBounds().left + Submarine.getGlobalBounds().width + 50 < 550)
-				Submarine.move(50, 0);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			if (Submarine.getGlobalBounds().top - 50 > 100)
-				Submarine.move(0, -50);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			if (Submarine.getGlobalBounds().left - 50 > 50)
-				Submarine.move(-50, 0);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			if (Submarine.getGlobalBounds().top + Submarine.getGlobalBounds().height + 50 < 600)
-				Submarine.move(0, 50);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		{
-			if (Submarine.getGlobalBounds().height > Submarine.getGlobalBounds().width)
+			if (event.type == sf::Event::KeyPressed)
 			{
-				if (Submarine.getGlobalBounds().left + Submarine.getGlobalBounds().height < 550)
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				{
-					Submarine.setRotation(-90.f);
-					Submarine.move(0, 30);
+					if (Submarine.getGlobalBounds().left + Submarine.getGlobalBounds().width + 50 < 550)
+						Submarine.move(50, 0);
 				}
-				else
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 				{
-					Submarine.setRotation(-90.f);
-					Submarine.move(-200, 30);
+					if (Submarine.getGlobalBounds().top - 50 > 100)
+						Submarine.move(0, -50);
 				}
-			}
-			else
-			{
-				if (Submarine.getGlobalBounds().top + Submarine.getGlobalBounds().width < 600)
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 				{
-					Submarine.setRotation(0.f);
-					Submarine.move(0, -30);
+					if (Submarine.getGlobalBounds().left - 50 > 50)
+						Submarine.move(-50, 0);
 				}
-				else
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 				{
-					Submarine.setRotation(0.f);
-					Submarine.move(0, -130);
+					if (Submarine.getGlobalBounds().top + Submarine.getGlobalBounds().height + 50 < 600)
+						Submarine.move(0, 50);
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				{
+					if (Submarine.getGlobalBounds().height > Submarine.getGlobalBounds().width)
+					{
+						if (Submarine.getGlobalBounds().left + Submarine.getGlobalBounds().height < 550)
+						{
+							Submarine.setRotation(-90.f);
+							Submarine.move(0, 30);
+						}
+						else
+						{
+							Submarine.setRotation(-90.f);
+							Submarine.move(-200, 30);
+						}
+					}
+					else
+					{
+						if (Submarine.getGlobalBounds().top + Submarine.getGlobalBounds().width < 600)
+						{
+							Submarine.setRotation(0.f);
+							Submarine.move(0, -30);
+						}
+						else
+						{
+							Submarine.setRotation(0.f);
+							Submarine.move(0, -130);
+						}
+					}
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				{
+					if (Submarine.getGlobalBounds().intersects(Carrier.getGlobalBounds()) || Submarine.getGlobalBounds().intersects(Battleship.getGlobalBounds()))
+						instructions.setString("Use the arrow keys to position your Submarine, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your Submarine.");
+					else if (Submarine.getGlobalBounds().intersects(Cruiser.getGlobalBounds()))
+						instructions.setString("Use the arrow keys to position your Submarine, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your Submarine.");
+					else {
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+						window.draw(Submarine);
+						window.draw(instructions);
+						window.display();
+						return true;
+					}
 				}
 			}
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		{
-			if (Submarine.getGlobalBounds().intersects(Carrier.getGlobalBounds()) || Submarine.getGlobalBounds().intersects(Battleship.getGlobalBounds()))
-				instructions.setString("Use the arrow keys to position your Submarine, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your Submarine.");
-			else if(Submarine.getGlobalBounds().intersects(Cruiser.getGlobalBounds()))
-				instructions.setString("Use the arrow keys to position your Submarine, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your Submarine.");
-			else {
-				callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer);
-				window.draw(Submarine);
-				window.draw(instructions);
-				window.display();
-				return true;
-			}
-		}
-
-		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer);
+		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
 		window.draw(Submarine);
 		window.draw(instructions);
 		window.display();
@@ -479,7 +483,7 @@ bool placeSubmarine(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submar
 	}
 	return false;
 }
-bool placeDestroyer(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window)
+bool placeDestroyer(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
 	font.loadFromFile("MachineStd.otf");
@@ -496,72 +500,74 @@ bool placeDestroyer(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submar
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			if (Destroyer.getGlobalBounds().left + Destroyer.getGlobalBounds().width + 50 < 550)
-				Destroyer.move(50, 0);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			if (Destroyer.getGlobalBounds().top - 50 > 100)
-				Destroyer.move(0, -50);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			if (Destroyer.getGlobalBounds().left - 50 > 50)
-				Destroyer.move(-50, 0);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			if (Destroyer.getGlobalBounds().top + Destroyer.getGlobalBounds().height + 50 < 600)
-				Destroyer.move(0, 50);
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		{
-			if (Destroyer.getGlobalBounds().height > Destroyer.getGlobalBounds().width)
+			if (event.type == sf::Event::KeyPressed)
 			{
-				if (Destroyer.getGlobalBounds().left + Destroyer.getGlobalBounds().height < 550)
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				{
-					Destroyer.setRotation(-90.f);
-					Destroyer.move(0, 30);
+					if (Destroyer.getGlobalBounds().left + Destroyer.getGlobalBounds().width + 50 < 550)
+						Destroyer.move(50, 0);
 				}
-				else
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 				{
-					Destroyer.setRotation(-90.f);
-					Destroyer.move(-200, 30);
+					if (Destroyer.getGlobalBounds().top - 50 > 100)
+						Destroyer.move(0, -50);
 				}
-			}
-			else
-			{
-				if (Destroyer.getGlobalBounds().top + Destroyer.getGlobalBounds().width < 600)
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 				{
-					Destroyer.setRotation(0.f);
-					Destroyer.move(0, -30);
+					if (Destroyer.getGlobalBounds().left - 50 > 50)
+						Destroyer.move(-50, 0);
 				}
-				else
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 				{
-					Destroyer.setRotation(0.f);
-					Destroyer.move(0, -80);
+					if (Destroyer.getGlobalBounds().top + Destroyer.getGlobalBounds().height + 50 < 600)
+						Destroyer.move(0, 50);
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				{
+					if (Destroyer.getGlobalBounds().height > Destroyer.getGlobalBounds().width)
+					{
+						if (Destroyer.getGlobalBounds().left + Destroyer.getGlobalBounds().height < 550)
+						{
+							Destroyer.setRotation(-90.f);
+							Destroyer.move(0, 30);
+						}
+						else
+						{
+							Destroyer.setRotation(-90.f);
+							Destroyer.move(-200, 30);
+						}
+					}
+					else
+					{
+						if (Destroyer.getGlobalBounds().top + Destroyer.getGlobalBounds().width < 600)
+						{
+							Destroyer.setRotation(0.f);
+							Destroyer.move(0, -30);
+						}
+						else
+						{
+							Destroyer.setRotation(0.f);
+							Destroyer.move(0, -80);
+						}
+					}
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				{
+					if (Destroyer.getGlobalBounds().intersects(Carrier.getGlobalBounds()) || Destroyer.getGlobalBounds().intersects(Battleship.getGlobalBounds()))
+						instructions.setString("Use the arrow keys to position your Destroyer, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your Destroyer.");
+					else if (Destroyer.getGlobalBounds().intersects(Cruiser.getGlobalBounds()) || Destroyer.getGlobalBounds().intersects(Submarine.getGlobalBounds()))
+						instructions.setString("Use the arrow keys to position your Destroyer, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your Destroyer.");
+					else {
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+						window.draw(Destroyer);
+						window.draw(instructions);
+						window.display();
+						return true;
+					}
 				}
 			}
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		{
-			if (Destroyer.getGlobalBounds().intersects(Carrier.getGlobalBounds()) || Destroyer.getGlobalBounds().intersects(Battleship.getGlobalBounds()))
-				instructions.setString("Use the arrow keys to position your Destroyer, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your Destroyer.");
-			else if (Destroyer.getGlobalBounds().intersects(Cruiser.getGlobalBounds()) || Destroyer.getGlobalBounds().intersects(Submarine.getGlobalBounds()))
-				instructions.setString("Use the arrow keys to position your Destroyer, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your Destroyer.");
-			else {
-				callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer);
-				window.draw(Destroyer);
-				window.draw(instructions);
-				window.display();
-				return true;
-			}
-		}
-
-		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer);
+		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
 		window.draw(Destroyer);
 		window.draw(instructions);
 		window.display();
