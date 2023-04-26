@@ -2,6 +2,7 @@
 
 int main(void)
 {
+	//Render background
 	sf::RenderWindow window(sf::VideoMode(1200, 800), "Battleship");
 	Ship Carrier(sf::Vector2f(30, 230), sf::Vector2f(60, 110)), Battleship(sf::Vector2f(30, 180), sf::Vector2f(60, 110)), Cruiser(sf::Vector2f(30, 130), sf::Vector2f(60, 110)), Submarine(sf::Vector2f(30, 130), sf::Vector2f(60, 110)), Destroyer(sf::Vector2f(30, 80), sf::Vector2f(60, 110));
 	sf::Event event;
@@ -20,6 +21,7 @@ int main(void)
 	desTexture.loadFromFile("destroyer.png");
 	Destroyer.setTexture(&desTexture);
 
+	//Set ship status and brings background
 	callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
 	Carrier.setStatus(placeCarrier(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
 	Battleship.setStatus(placeBattleship(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
@@ -27,7 +29,7 @@ int main(void)
 	Submarine.setStatus(placeSubmarine(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
 	Destroyer.setStatus(placeDestroyer(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
 
-	
+	//Text to spawn opponent ships
 	callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
 	sf::Font font;
 	font.loadFromFile("MachineStd.otf");
@@ -40,6 +42,7 @@ int main(void)
 	window.draw(title);
 	window.display();
 
+	//Opponent ship vector with all ships
 	Ship opponentShips[5] =
 	{
 		Ship(sf::Vector2f(30, 230), sf::Vector2f(660, 110)),
@@ -49,9 +52,9 @@ int main(void)
 		Ship(sf::Vector2f(30, 80), sf::Vector2f(660, 110))
 	};
 	for (int i = 0; i < 5; i++)
-		opponentShips[i].setFillColor(sf::Color::Black);
+		opponentShips[i].setFillColor(sf::Color::Black);	//Make ships black
 
-	spawnOpponentShips(opponentShips);
+	spawnOpponentShips(opponentShips);				//Spawn in opponent ships and place them randomly on the board
 
 
 	while (window.isOpen())
