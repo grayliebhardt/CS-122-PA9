@@ -648,3 +648,125 @@ void placeSingleOpponentShip(Ship& ship)
 		
 	}
 }
+
+bool placeShot(Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
+{
+	sf::Font font;
+	font.loadFromFile("MachineStd.otf");
+	sf::Text instructions;
+	instructions.setFont(font);
+	instructions.setCharacterSize(24);
+	instructions.setFillColor(sf::Color::White);
+	instructions.setString("Use the arrow keys to position your Shot, spacebar\nto confirm placement.");
+	instructions.setPosition(100, 620);
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (event.type == sf::Event::KeyPressed)
+			{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+				{
+					if (targetShot.getGlobalBounds().left + targetShot.getGlobalBounds().width + 50 < 550)
+						targetShot.move(50, 0);
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+				{
+					if (targetShot.getGlobalBounds().top - 50 > 100)
+						targetShot.move(0, -50);
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+				{
+					if (targetShot.getGlobalBounds().left - 50 > 50)
+						targetShot.move(-50, 0);
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+				{
+					if (targetShot.getGlobalBounds().top + targetShot.getGlobalBounds().height + 50 < 600)
+						targetShot.move(0, 50);
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				{
+					if (targetShot.getGlobalBounds().intersects(hitShot.getGlobalBounds()) || targetShot.getGlobalBounds().intersects(missShot.getGlobalBounds()))
+					{
+						instructions.setString("Already shot there, try somewhere else.");
+					}
+
+					else if (targetShot.getGlobalBounds().intersects(Carrier.getGlobalBounds()))
+					{
+						instructions.setString("Carrier hit!");
+						hitShot.setPosition(targetShot.getPosition());
+						hitShot.setShotStatus(true);
+						window.draw(hitShot);
+						targetShot.setShotStatus(false);
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+						return true;
+					}
+					else if (targetShot.getGlobalBounds().intersects(Destroyer.getGlobalBounds()))
+					{
+						instructions.setString("Destroyer hit!");
+						hitShot.setPosition(targetShot.getPosition());
+						hitShot.setShotStatus(true);
+						window.draw(hitShot);
+
+						//not sure why its still drawing target shots permanently with this line of code
+						targetShot.setShotStatus(false);
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+						return true;
+					}
+					else if (targetShot.getGlobalBounds().intersects(Battleship.getGlobalBounds()))
+					{
+						instructions.setString("Battleship hit!");
+						hitShot.setPosition(targetShot.getPosition());
+						hitShot.setShotStatus(true);
+						window.draw(hitShot);
+						targetShot.setShotStatus(false);
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+						return true;
+					}
+					else if (targetShot.getGlobalBounds().intersects(Cruiser.getGlobalBounds()))
+					{
+						instructions.setString("Cruiser hit!");
+						hitShot.setPosition(targetShot.getPosition());
+						hitShot.setShotStatus(true);
+						window.draw(hitShot);
+						targetShot.setShotStatus(false);
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+						return true;
+					}
+					else if (targetShot.getGlobalBounds().intersects(Submarine.getGlobalBounds()))
+					{
+						instructions.setString("Submarine hit!");
+						hitShot.setPosition(targetShot.getPosition());
+						hitShot.setShotStatus(true);
+						window.draw(hitShot);
+						targetShot.setShotStatus(false);
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+						return true;
+					}
+						
+					else {
+						instructions.setString("Miss!");
+						missShot.setPosition(targetShot.getPosition());
+						missShot.setShotStatus(true);
+						window.draw(missShot);
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+
+						window.draw(instructions);
+						window.display();
+						return true;
+					}
+				}
+			}
+		}
+		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+		window.draw(targetShot);
+		window.draw(instructions);
+		window.display();
+
+	}
+	return false;
+}
