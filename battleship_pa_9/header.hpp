@@ -1,22 +1,22 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp>		//SMFL graphics library import
 
-class Ship : public sf::RectangleShape
+class Ship : public sf::RectangleShape	//Create class based off of sfml rectangle base class
 {
 public:
-	Ship(const sf::Vector2f& newSize, const sf::Vector2f& newPos) :
+	Ship(const sf::Vector2f& newSize, const sf::Vector2f& newPos) :		//Constructor
 		sf::RectangleShape(newSize)
 	{
 		this->setPosition(newPos);
 		loaded = false;
 	}
-	bool getStatus();
-	void setStatus(bool load);
+	bool getStatus();			//Getter
+	void setStatus(bool load);		//Setter
 private:
-	bool loaded;
+	bool loaded;				//Status of ship loading
 };
 
-typedef enum shot {
+typedef enum shot {				//Shot result options
 	hit,miss,invalid
 };
 
