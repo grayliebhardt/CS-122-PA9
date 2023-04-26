@@ -1,14 +1,18 @@
 #include "header.hpp"
 
+//Getter for if ship has loaded
 bool Ship::getStatus()
 {
 	return loaded;
 }
+
+//Setter for ship load status
 void Ship::setStatus(bool load)
 {
 	loaded = load;
 }
 
+//Render background and call it to game
 void callbackground(sf::RenderWindow& window, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::Sprite background)
 {
 	sf::Color backgroundcolor(110, 156, 230);
@@ -118,7 +122,7 @@ void callbackground(sf::RenderWindow& window, Ship& Carrier, Ship& Battleship, S
 
 }
 
-
+//Function for user to manually place ship, returns if successful or not
 bool placeCarrier(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
@@ -205,6 +209,8 @@ bool placeCarrier(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarin
 	}
 	return false;
 }
+
+//Function that is used to manually place battleship for user
 bool placeBattleship(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
@@ -298,6 +304,7 @@ bool placeBattleship(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Subma
 	return false;
 }
 
+//Function manually places users cruiser
 bool placeCruiser(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
@@ -391,6 +398,7 @@ bool placeCruiser(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarin
 	return false;
 }
 
+//Function manually places users submarine
 bool placeSubmarine(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
@@ -483,6 +491,8 @@ bool placeSubmarine(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submar
 	}
 	return false;
 }
+
+//Function manually places users destroyer
 bool placeDestroyer(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
@@ -576,7 +586,7 @@ bool placeDestroyer(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submar
 	return false;
 }
 
-
+//Spawns opponent ships randomly
 void spawnOpponentShips(Ship opponentships[])
 {
 	
@@ -620,6 +630,7 @@ void spawnOpponentShips(Ship opponentships[])
 	}
 }
 
+//Function used to place each ship
 void placeSingleOpponentShip(Ship& ship)
 {
 	srand(time(NULL));
