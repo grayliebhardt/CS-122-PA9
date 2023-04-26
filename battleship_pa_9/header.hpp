@@ -15,7 +15,7 @@ public:
 	void setStatus(bool load);		//Setter
 private:
 	bool loaded;				//Status of ship loading
-	bool sunk;
+	bool sunk;				//Variable to check if shi[ is sunk
 };
 
 typedef enum shot {				//Shot result options
