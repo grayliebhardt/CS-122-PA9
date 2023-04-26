@@ -575,3 +575,65 @@ bool placeDestroyer(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submar
 	}
 	return false;
 }
+
+
+void spawnOpponentShips(Ship opponentships[])
+{
+	
+	for (int i = 0; i < 5; i++)
+	{
+		switch (i) {
+
+		case 0:
+			do
+			{
+				placeSingleOpponentShip(opponentships[i]);
+			} while ((opponentships[i].getGlobalBounds().left + opponentships[i].getGlobalBounds().width > 1160) || (opponentships[i].getGlobalBounds().top + opponentships[i].getGlobalBounds().height > 600));
+			break;
+		case 1:
+			do
+			{
+				placeSingleOpponentShip(opponentships[i]);
+			} while ((opponentships[i].getGlobalBounds().intersects(opponentships[i - 1].getGlobalBounds())) || (opponentships[i].getGlobalBounds().left + opponentships[i].getGlobalBounds().width > 1160) || (opponentships[i].getGlobalBounds().top + opponentships[i].getGlobalBounds().height > 600));
+			break; 
+		case 2:
+			do
+			{
+				placeSingleOpponentShip(opponentships[i]);
+			} while ((opponentships[i].getGlobalBounds().intersects(opponentships[i - 1].getGlobalBounds())) || (opponentships[i].getGlobalBounds().intersects(opponentships[i - 2].getGlobalBounds())) || (opponentships[i].getGlobalBounds().left + opponentships[i].getGlobalBounds().width > 1160) || (opponentships[i].getGlobalBounds().top + opponentships[i].getGlobalBounds().height > 600));
+			break;
+		case 3:
+			do
+			{
+				placeSingleOpponentShip(opponentships[i]);
+			} while ((opponentships[i].getGlobalBounds().intersects(opponentships[i - 1].getGlobalBounds())) || (opponentships[i].getGlobalBounds().intersects(opponentships[i - 2].getGlobalBounds())) || (opponentships[i].getGlobalBounds().intersects(opponentships[i - 3].getGlobalBounds())) || (opponentships[i].getGlobalBounds().left + opponentships[i].getGlobalBounds().width > 1160) || (opponentships[i].getGlobalBounds().top + opponentships[i].getGlobalBounds().height > 600));
+			break;
+		case 4:
+			do
+			{
+				placeSingleOpponentShip(opponentships[i]);
+			} while ((opponentships[i].getGlobalBounds().intersects(opponentships[i-1].getGlobalBounds())) || (opponentships[i].getGlobalBounds().intersects(opponentships[i - 2].getGlobalBounds())) || (opponentships[i].getGlobalBounds().intersects(opponentships[i - 3].getGlobalBounds())) || (opponentships[i].getGlobalBounds().intersects(opponentships[i - 4].getGlobalBounds())) || (opponentships[i].getGlobalBounds().left + opponentships[i].getGlobalBounds().width > 1160) || (opponentships[i].getGlobalBounds().top + opponentships[i].getGlobalBounds().height > 600));
+
+			break;
+		
+		}
+	}
+}
+
+void placeSingleOpponentShip(Ship& ship)
+{
+	srand(time(NULL));
+	int orientation, row, col;
+	orientation = rand() % 2;
+	row = rand() % 10;
+	col = rand() % 10;
+	ship.setRotation(0);
+	ship.setPosition(660, 110);
+	ship.move(50 * col, 50 * row);
+	if (orientation == 1)
+	{
+		ship.setRotation(-90.f);
+		ship.move(0, 30);
+		
+	}
+}
