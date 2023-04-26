@@ -13,7 +13,7 @@ void Ship::setStatus(bool load)
 }
 
 //Render background and call it to game
-void callbackground(sf::RenderWindow& window, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::Sprite background)
+void callbackground(sf::RenderWindow& window, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::Sprite background, Shot& targetShot, Shot& hitShot,)
 {
 	sf::Color backgroundcolor(110, 156, 230);
 	sf::Text letter, number;
@@ -119,11 +119,17 @@ void callbackground(sf::RenderWindow& window, Ship& Carrier, Ship& Battleship, S
 		window.draw(Submarine);
 	if (Destroyer.getStatus())
 		window.draw(Destroyer);
+	if (targetShot.getShotStatus())
+		window.draw(targetShot);
+	if (hitShot.getShotStatus())
+		window.draw(hitShot);
+	if (missShot.getShotStatus())
+		window.draw(missShot);
 
 }
 
 //Function for user to manually place ship, returns if successful or not
-bool placeCarrier(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
+bool placeCarrier(Shot& targetShot, Shot& hitShot, Shot& missShot, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
 	font.loadFromFile("MachineStd.otf");
@@ -193,7 +199,7 @@ bool placeCarrier(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarin
 				}
 				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				{
-					callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+					callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
 					window.draw(Carrier);
 					window.draw(instructions);
 					window.display();
@@ -201,7 +207,7 @@ bool placeCarrier(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarin
 				}
 			}
 		}
-		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
 		window.draw(Carrier);
 		window.draw(instructions);
 		window.display();
@@ -211,7 +217,7 @@ bool placeCarrier(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarin
 }
 
 //Function that is used to manually place battleship for user
-bool placeBattleship(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
+bool placeBattleship(Shot& targetShot, Shot& hitShot, Shot& missShot, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
 	font.loadFromFile("MachineStd.otf");
@@ -286,7 +292,7 @@ bool placeBattleship(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Subma
 						instructions.setString("Use the arrow keys to position your Battleship, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your battleship.");
 					}
 					else {
-						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
 						window.draw(Battleship);
 						window.draw(instructions);
 						window.display();
@@ -295,7 +301,7 @@ bool placeBattleship(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Subma
 				}
 			}
 		}
-		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
 		window.draw(Battleship);
 		window.draw(instructions);
 		window.display();
@@ -305,7 +311,7 @@ bool placeBattleship(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Subma
 }
 
 //Function manually places users cruiser
-bool placeCruiser(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
+bool placeCruiser(Shot& targetShot, Shot& hitShot, Shot& missShot, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
 	font.loadFromFile("MachineStd.otf");
@@ -380,7 +386,7 @@ bool placeCruiser(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarin
 						instructions.setString("Use the arrow keys to position your Cruiser, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your Cruiser.");
 					}
 					else {
-						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
 						window.draw(Cruiser);
 						window.draw(instructions);
 						window.display();
@@ -389,7 +395,7 @@ bool placeCruiser(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarin
 				}
 			}
 		}
-		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
 		window.draw(Cruiser);
 		window.draw(instructions);
 		window.display();
@@ -399,7 +405,7 @@ bool placeCruiser(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarin
 }
 
 //Function manually places users submarine
-bool placeSubmarine(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
+bool placeSubmarine(Shot& targetShot, Shot& hitShot, Shot& missShot,Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
 	font.loadFromFile("MachineStd.otf");
@@ -474,7 +480,7 @@ bool placeSubmarine(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submar
 					else if (Submarine.getGlobalBounds().intersects(Cruiser.getGlobalBounds()))
 						instructions.setString("Use the arrow keys to position your Submarine, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your Submarine.");
 					else {
-						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
 						window.draw(Submarine);
 						window.draw(instructions);
 						window.display();
@@ -483,7 +489,7 @@ bool placeSubmarine(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submar
 				}
 			}
 		}
-		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
+		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
 		window.draw(Submarine);
 		window.draw(instructions);
 		window.display();
@@ -493,7 +499,7 @@ bool placeSubmarine(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submar
 }
 
 //Function manually places users destroyer
-bool placeDestroyer(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
+bool placeDestroyer(Shot& targetShot, Shot& hitShot, Shot& missShot,Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
 	font.loadFromFile("MachineStd.otf");
@@ -744,7 +750,7 @@ bool placeShot(Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& Carrier, Sh
 						hitShot.setShotStatus(true);
 						window.draw(hitShot);
 						targetShot.setShotStatus(false);
-						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot, targetShot, hitShot, missShot);
 						return true;
 					}
 						
@@ -753,7 +759,7 @@ bool placeShot(Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& Carrier, Sh
 						missShot.setPosition(targetShot.getPosition());
 						missShot.setShotStatus(true);
 						window.draw(missShot);
-						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot, targetShot, hitShot, missShot);
 
 						window.draw(instructions);
 						window.display();
@@ -762,7 +768,7 @@ bool placeShot(Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& Carrier, Sh
 				}
 			}
 		}
-		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+		callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot, targetShot, hitShot, missShot);
 		window.draw(targetShot);
 		window.draw(instructions);
 		window.display();
