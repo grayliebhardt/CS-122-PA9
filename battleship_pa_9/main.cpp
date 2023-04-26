@@ -5,6 +5,7 @@ int main(void)
 	//Render background
 	sf::RenderWindow window(sf::VideoMode(1200, 800), "Battleship");
 	Ship Carrier(sf::Vector2f(30, 230), sf::Vector2f(60, 110)), Battleship(sf::Vector2f(30, 180), sf::Vector2f(60, 110)), Cruiser(sf::Vector2f(30, 130), sf::Vector2f(60, 110)), Submarine(sf::Vector2f(30, 130), sf::Vector2f(60, 110)), Destroyer(sf::Vector2f(30, 80), sf::Vector2f(60, 110));
+	Shot targetShot(sf::Vector2f(30, 30), sf::Vector2f(660, 110)), hitShip(sf::Vector2f(30, 30), sf::Vector2f(60, 110)), missShip(sf::Vector2f(30, 30), sf::Vector2f(60, 110));
 	sf::Event event;
 	sf::Texture carTexture, batTexture, cruTexture, subTexture, desTexture;
 	sf::Texture ocean;
@@ -28,6 +29,9 @@ int main(void)
 	Cruiser.setStatus(placeCruiser(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
 	Submarine.setStatus(placeSubmarine(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
 	Destroyer.setStatus(placeDestroyer(Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
+	
+	//example shot, needs opponents ships as inputs instead of own ships
+	targetShot.setShotStatus(placeShot(targetShot, hitShip, missShip, Carrier, Battleship, Cruiser, Submarine, Destroyer, window, background));
 
 	//Text to spawn opponent ships
 	callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background);
