@@ -16,6 +16,30 @@ private:
 	bool loaded;				//Status of ship loading
 };
 
+//Created class for the Main Menu 
+class MainMenu 
+{
+public:
+
+	MainMenu(float width, float height);
+
+	//Functions for Class
+	void draw(sf::RenderWindow& window);
+	void MoveUp();
+	void MoveDown();
+
+	int MainMenuPressed()
+	{
+		return MainMenuSelected;
+	}
+	~MainMenu();
+
+private:
+	int MainMenuSelected;
+	sf::Font font;
+	sf::Text mainMenu[Max_Main_Menu];
+};
+
 typedef enum shot {				//Shot result options
 	hit,miss,invalid
 };
