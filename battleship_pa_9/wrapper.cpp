@@ -72,10 +72,13 @@ void gameWrapper(void)
 
 	while (window.isOpen())
 	{
+		int cpuHitCounter = 0;
+		int userHitCounter = 0;
+		
 		//game
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
+			if (event.type == sf::Event::Closed || cpuHitCounter >= 17 || userHitCounter > = 17)
 				window.close();
 		}
 
