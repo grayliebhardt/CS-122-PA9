@@ -1,4 +1,5 @@
 #include "header.hpp"
+#include <random> // for random number generation
 
 //Getter for if ship has loaded
 bool Ship::getStatus()
@@ -781,8 +782,6 @@ bool placeShot(int& hits, Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& 
 	}
 	return false;
 }
-
-#include <random> // for random number generation
 
 bool placeComputerShot(int& hits, Shot& targetShot, Shot& hitShot, Shot& missShot, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
