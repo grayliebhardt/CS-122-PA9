@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>		//SMFL graphics library import
-#define Max_Main_Menu 3
+#define Max_Main_Menu 4
 
 class Ship : public sf::RectangleShape	//Create class based off of sfml rectangle base class
 {
