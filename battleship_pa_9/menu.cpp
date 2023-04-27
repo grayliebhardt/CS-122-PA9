@@ -1,6 +1,78 @@
 #include "header.hpp"
 #include <random> // for random number generation
 
+MainMenu::MainMenu(float width, float height)
+{
+	//Play option in Main Menu 
+	mainMenu[0].setFont(font);
+	font.loadFromFile("MachineStd.otf");
+	mainMenu[0].setFillColor(sf::Color::White);
+	mainMenu[0].setString("Play");
+	mainMenu[0].setCharacterSize(100);
+	mainMenu[0].setPosition(500, 200);
+
+	//About option in Main Menu 
+	mainMenu[1].setFont(font);
+	font.loadFromFile("MachineStd.otf");
+	mainMenu[1].setFillColor(sf::Color::White);
+	mainMenu[1].setString("About");
+	mainMenu[1].setCharacterSize(100);
+	mainMenu[1].setPosition(500, 300);
+
+	//Exit option in Main Menu
+	mainMenu[2].setFont(font);
+	font.loadFromFile("MachineStd.otf");
+	mainMenu[2].setFillColor(sf::Color::White);
+	mainMenu[2].setString("Exit");
+	mainMenu[2].setCharacterSize(100);
+	mainMenu[2].setPosition(500, 400);
+
+	MainMenuSelected = -1;
+}
+MainMenu::~MainMenu()
+{
+
+}
+
+//Draws the Main Menu 
+void MainMenu::draw(sf::RenderWindow& window)
+{
+	for (int i = 0; i < Max_Main_Menu; ++i)
+	{
+		window.draw(mainMenu[i]);
+	}
+}
+
+//Move Down 
+void MainMenu::MoveDown()
+{
+	if (MainMenuSelected + 1 <= Max_Main_Menu)
+	{
+		mainMenu[MainMenuSelected].setFillColor(sf::Color::White);
+		MainMenuSelected++;
+		if (MainMenuSelected == 4)
+		{
+			MainMenuSelected = 0;
+		}
+		mainMenu[MainMenuSelected].setFillColor(sf::Color::Blue);
+	}
+}
+
+//Move Up
+void MainMenu::MoveUp()
+{
+	if (MainMenuSelected - 1 >= 0)
+	{
+		mainMenu[MainMenuSelected].setFillColor(sf::Color::White);
+		MainMenuSelected--;
+		if (MainMenuSelected == -1)
+		{
+			MainMenuSelected = 2;
+		}
+		mainMenu[MainMenuSelected].setFillColor(sf::Color::Blue);
+	}
+}
+
 //Getter for if ship has loaded
 bool Ship::getStatus()
 {
