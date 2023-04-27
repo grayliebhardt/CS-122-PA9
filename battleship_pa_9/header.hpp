@@ -45,6 +45,6 @@ bool placeSubmarine(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submar
 bool placeDestroyer(Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background);
 void spawnOpponentShips(Ship opponentships[]);
 void placeSingleOpponentShip(Ship& ship);
-bool placeShot(Shot& targetShot, Shot& missShot, Shot& hitShot, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background);
+bool placeShot(int& hits, Shot& targetShot, Shot& missShot, Shot& hitShot, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background);
 
 void gameWrapper(void);
