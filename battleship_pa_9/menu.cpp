@@ -781,3 +781,80 @@ bool placeShot(int& hits, Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& 
 	}
 	return false;
 }
+
+#include <random> // for random number generation
+
+bool placeComputerShot(int& hits, Shot& targetShot, Shot& hitShot, Shot& missShot, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
+{
+    std::random_device rd; // obtain a random seed from the hardware
+    std::mt19937 eng(rd()); // seed the generator
+    std::uniform_int_distribution<> xDist(50, 550); // define the range of x coordinates
+    std::uniform_int_distribution<> yDist(100, 600); // define the range of y coordinates
+
+    // generate a random position for the shot
+    int x = xDist(eng);
+    int y = yDist(eng);
+    targetShot.setPosition(x, y);
+
+    // check if the shot hits a ship
+    if (targetShot.getGlobalBounds().intersects(Carrier.getGlobalBounds()))
+    {
+        hits++;
+        instructions.setString("Carrier hit!");
+        hitShot.setPosition(targetShot.getPosition());
+        hitShot.setShotStatus(true);
+        window.draw(hitShot);
+        callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+        return true;
+    }
+    else if (targetShot.getGlobalBounds().intersects(Destroyer.getGlobalBounds()))
+    {
+        hits++;
+        instructions.setString("Destroyer hit!");
+        hitShot.setPosition(targetShot.getPosition());
+        hitShot.setShotStatus(true);
+        window.draw(hitShot);
+        callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+        return true;
+    }
+    else if (targetShot.getGlobalBounds().intersects(Battleship.getGlobalBounds()))
+    {
+        hits++;
+        instructions.setString("Battleship hit!");
+        hitShot.setPosition(targetShot.getPosition());
+        hitShot.setShotStatus(true);
+        window.draw(hitShot);
+        callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+        return true;
+    }
+    else if (targetShot.getGlobalBounds().intersects(Cruiser.getGlobalBounds()))
+    {
+        hits++;
+        instructions.setString("Cruiser hit!");
+        hitShot.setPosition(targetShot.getPosition());
+        hitShot.setShotStatus(true);
+        window.draw(hitShot);
+        callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+        return true;
+    }
+    else if (targetShot.getGlobalBounds().intersects(Submarine.getGlobalBounds()))
+    {
+        hits++;
+        instructions.setString("Submarine hit!");
+        hitShot.setPosition(targetShot.getPosition());
+        hitShot.setShotStatus(true);
+        window.draw(hitShot);
+        callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+        return true;
+    }
+    else
+    {
+        instructions.setString("Miss!");
+        missShot.setPosition(targetShot.getPosition());
+        missShot.setShotStatus(true);
+        window.draw(missShot);
+        callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+        return true;
+    }
+}
+
