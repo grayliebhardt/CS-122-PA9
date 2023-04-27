@@ -29,9 +29,9 @@ MainMenu::MainMenu(float width, float height)
 
 	MainMenuSelected = -1;
 }
-MainMenu::~MainMenu()
-{
 
+MainMenu::~MainMenu()	//Main menu destructor
+{
 }
 
 //Draws the Main Menu 
@@ -175,7 +175,7 @@ void callbackground(sf::RenderWindow& window, Ship& Carrier, Ship& Battleship, S
 	title.setFont(font);
 	title.setString("Your board");
 	title.setFillColor(sf::Color::White);
-	title.setCharacterSize(40);
+	title.setCharacterSize(40);			//Display boards
 	title.setPosition(210, 10);
 	window.draw(title);
 	title.setString("Opponent's board");
@@ -189,7 +189,7 @@ void callbackground(sf::RenderWindow& window, Ship& Carrier, Ship& Battleship, S
 	if (Cruiser.getStatus())
 		window.draw(Cruiser);
 	if (Submarine.getStatus())
-		window.draw(Submarine);
+		window.draw(Submarine);				//Draw ships
 	if (Destroyer.getStatus())
 		window.draw(Destroyer);
 	if (targetShot.getShotStatus())
@@ -223,25 +223,25 @@ bool placeCarrier(Shot& targetShot, Shot& hitShot, Shot& missShot, Ship& Carrier
 			{
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				{
-					if (Carrier.getGlobalBounds().left + Carrier.getGlobalBounds().width + 50 < 550)
+					if (Carrier.getGlobalBounds().left + Carrier.getGlobalBounds().width + 50 < 550)		//Right
 						Carrier.move(50, 0);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))					//Up
 				{
 					if (Carrier.getGlobalBounds().top - 50 > 100)
 						Carrier.move(0, -50);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))			//Left
 				{
 					if (Carrier.getGlobalBounds().left - 50 > 50)
 						Carrier.move(-50, 0);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))			//Down
 				{
 					if (Carrier.getGlobalBounds().top + Carrier.getGlobalBounds().height + 50 < 600)
 						Carrier.move(0, 50);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))				//Place
 				{
 					if (Carrier.getGlobalBounds().height > Carrier.getGlobalBounds().width)
 					{
@@ -270,7 +270,7 @@ bool placeCarrier(Shot& targetShot, Shot& hitShot, Shot& missShot, Ship& Carrier
 						}
 					}
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))		//Escape
 				{
 					callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
 					window.draw(Carrier);
@@ -311,27 +311,27 @@ bool placeBattleship(Shot& targetShot, Shot& hitShot, Shot& missShot, Ship& Carr
 			{
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				{
-					if (Battleship.getGlobalBounds().left + Battleship.getGlobalBounds().width + 50 < 550)
+					if (Battleship.getGlobalBounds().left + Battleship.getGlobalBounds().width + 50 < 550)		//Right
 						Battleship.move(50, 0);
 				}
 				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 				{
-					if (Battleship.getGlobalBounds().top - 50 > 100)
+					if (Battleship.getGlobalBounds().top - 50 > 100)		//Up
 						Battleship.move(0, -50);
 				}
 				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 				{
-					if (Battleship.getGlobalBounds().left - 50 > 50)
+					if (Battleship.getGlobalBounds().left - 50 > 50)		//Left
 						Battleship.move(-50, 0);
 				}
 				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 				{
 					if (Battleship.getGlobalBounds().top + Battleship.getGlobalBounds().height + 50 < 600)
-						Battleship.move(0, 50);
+						Battleship.move(0, 50);					//Down
 				}
 				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 				{
-					if (Battleship.getGlobalBounds().height > Battleship.getGlobalBounds().width)
+					if (Battleship.getGlobalBounds().height > Battleship.getGlobalBounds().width)		//Place
 					{
 						if (Battleship.getGlobalBounds().left + Battleship.getGlobalBounds().height < 550)
 						{
@@ -359,7 +359,7 @@ bool placeBattleship(Shot& targetShot, Shot& hitShot, Shot& missShot, Ship& Carr
 					}
 				}
 				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-				{
+				{											//Escape
 					if (Battleship.getGlobalBounds().intersects(Carrier.getGlobalBounds()))
 					{
 						instructions.setString("Use the arrow keys to position your Battleship, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your battleship.");
@@ -405,25 +405,25 @@ bool placeCruiser(Shot& targetShot, Shot& hitShot, Shot& missShot, Ship& Carrier
 			{
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				{
-					if (Cruiser.getGlobalBounds().left + Cruiser.getGlobalBounds().width + 50 < 550)
+					if (Cruiser.getGlobalBounds().left + Cruiser.getGlobalBounds().width + 50 < 550)		//Right
 						Cruiser.move(50, 0);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))				//Up
 				{
 					if (Cruiser.getGlobalBounds().top - 50 > 100)
 						Cruiser.move(0, -50);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))			//Left
 				{
 					if (Cruiser.getGlobalBounds().left - 50 > 50)
 						Cruiser.move(-50, 0);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))			//Down
 				{
 					if (Cruiser.getGlobalBounds().top + Cruiser.getGlobalBounds().height + 50 < 600)
 						Cruiser.move(0, 50);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))			//Place
 				{
 					if (Cruiser.getGlobalBounds().height > Cruiser.getGlobalBounds().width)
 					{
@@ -452,7 +452,7 @@ bool placeCruiser(Shot& targetShot, Shot& hitShot, Shot& missShot, Ship& Carrier
 						}
 					}
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))		//Escape
 				{
 					if (Cruiser.getGlobalBounds().intersects(Carrier.getGlobalBounds()) || Cruiser.getGlobalBounds().intersects(Battleship.getGlobalBounds()))
 					{
@@ -499,25 +499,25 @@ bool placeSubmarine(Shot& targetShot, Shot& hitShot, Shot& missShot,Ship& Carrie
 			{
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				{
-					if (Submarine.getGlobalBounds().left + Submarine.getGlobalBounds().width + 50 < 550)
+					if (Submarine.getGlobalBounds().left + Submarine.getGlobalBounds().width + 50 < 550)		//Right
 						Submarine.move(50, 0);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))			//Up
 				{
 					if (Submarine.getGlobalBounds().top - 50 > 100)
 						Submarine.move(0, -50);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))		//Left
 				{
 					if (Submarine.getGlobalBounds().left - 50 > 50)
 						Submarine.move(-50, 0);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))		//Down
 				{
 					if (Submarine.getGlobalBounds().top + Submarine.getGlobalBounds().height + 50 < 600)
 						Submarine.move(0, 50);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))		//Space
 				{
 					if (Submarine.getGlobalBounds().height > Submarine.getGlobalBounds().width)
 					{
@@ -546,7 +546,7 @@ bool placeSubmarine(Shot& targetShot, Shot& hitShot, Shot& missShot,Ship& Carrie
 						}
 					}
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))		//Escape
 				{
 					if (Submarine.getGlobalBounds().intersects(Carrier.getGlobalBounds()) || Submarine.getGlobalBounds().intersects(Battleship.getGlobalBounds()))
 						instructions.setString("Use the arrow keys to position your Submarine, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your Submarine.");
@@ -591,27 +591,27 @@ bool placeDestroyer(Shot& targetShot, Shot& hitShot, Shot& missShot,Ship& Carrie
 				window.close();
 			if (event.type == sf::Event::KeyPressed)
 			{
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))			//Right
 				{
 					if (Destroyer.getGlobalBounds().left + Destroyer.getGlobalBounds().width + 50 < 550)
 						Destroyer.move(50, 0);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))			//Up
 				{
 					if (Destroyer.getGlobalBounds().top - 50 > 100)
 						Destroyer.move(0, -50);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))		//Left
 				{
 					if (Destroyer.getGlobalBounds().left - 50 > 50)
 						Destroyer.move(-50, 0);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))		//Down
 				{
 					if (Destroyer.getGlobalBounds().top + Destroyer.getGlobalBounds().height + 50 < 600)
 						Destroyer.move(0, 50);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))		//Space
 				{
 					if (Destroyer.getGlobalBounds().height > Destroyer.getGlobalBounds().width)
 					{
@@ -640,7 +640,7 @@ bool placeDestroyer(Shot& targetShot, Shot& hitShot, Shot& missShot,Ship& Carrie
 						}
 					}
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))		//Escape
 				{
 					if (Destroyer.getGlobalBounds().intersects(Carrier.getGlobalBounds()) || Destroyer.getGlobalBounds().intersects(Battleship.getGlobalBounds()))
 						instructions.setString("Use the arrow keys to position your Destroyer, spacebar\nto rotate, and escape to confirm placement.\n\nShips cannot intersect, move your Destroyer.");
@@ -671,7 +671,7 @@ void spawnOpponentShips(Ship opponentships[])
 	
 	for (int i = 0; i < 5; i++)
 	{
-		switch (i) {
+		switch (i) {		//Switch case for each ship
 
 		case 0:
 			do
@@ -728,6 +728,7 @@ void placeSingleOpponentShip(Ship& ship)
 	}
 }
 
+//this function places and takes the shot based on user input
 bool placeShot(int& hits, Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
@@ -749,36 +750,36 @@ bool placeShot(int& hits, Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& 
 			{
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 				{
-					if (targetShot.getGlobalBounds().left + targetShot.getGlobalBounds().width + 50 < 550)
+					if (targetShot.getGlobalBounds().left + targetShot.getGlobalBounds().width + 50 < 550)		//Right
 						targetShot.move(50, 0);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))							//Up
 				{
 					if (targetShot.getGlobalBounds().top - 50 > 100)
 						targetShot.move(0, -50);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))						//Left
 				{
 					if (targetShot.getGlobalBounds().left - 50 > 50)
 						targetShot.move(-50, 0);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))						//Down
 				{
 					if (targetShot.getGlobalBounds().top + targetShot.getGlobalBounds().height + 50 < 600)
 						targetShot.move(0, 50);
 				}
-				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))						//Shoot
 				{
 					if (targetShot.getGlobalBounds().intersects(hitShot.getGlobalBounds()) || targetShot.getGlobalBounds().intersects(missShot.getGlobalBounds()))
 					{
-						instructions.setString("Already shot there, try somewhere else.");
+						instructions.setString("Already shot there, try somewhere else.");		//Already shot at location
 					}
 
 					else if (targetShot.getGlobalBounds().intersects(Carrier.getGlobalBounds()))
 					{
 						instructions.setString("Carrier hit!");
 						hitShot.setPosition(targetShot.getPosition());
-						hitShot.setShotStatus(true);
+						hitShot.setShotStatus(true);				//Carrier hit
 						window.draw(hitShot);
 						targetShot.setShotStatus(false);
 						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
@@ -788,7 +789,7 @@ bool placeShot(int& hits, Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& 
 					else if (targetShot.getGlobalBounds().intersects(Destroyer.getGlobalBounds()))
 					{
 						instructions.setString("Destroyer hit!");
-						hitShot.setPosition(targetShot.getPosition());
+						hitShot.setPosition(targetShot.getPosition());		//Destroyer hit
 						hitShot.setShotStatus(true);
 						window.draw(hitShot);
 						hits++;
@@ -801,7 +802,7 @@ bool placeShot(int& hits, Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& 
 					else if (targetShot.getGlobalBounds().intersects(Battleship.getGlobalBounds()))
 					{
 						instructions.setString("Battleship hit!");
-						hitShot.setPosition(targetShot.getPosition());
+						hitShot.setPosition(targetShot.getPosition());			//Battleship hit
 						hitShot.setShotStatus(true);
 						window.draw(hitShot);
 						targetShot.setShotStatus(false);
@@ -813,7 +814,7 @@ bool placeShot(int& hits, Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& 
 					{
 						instructions.setString("Cruiser hit!");
 						hitShot.setPosition(targetShot.getPosition());
-						hitShot.setShotStatus(true);
+						hitShot.setShotStatus(true);				//Cruiser hit
 						window.draw(hitShot);
 						targetShot.setShotStatus(false);
 						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
@@ -823,7 +824,7 @@ bool placeShot(int& hits, Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& 
 					else if (targetShot.getGlobalBounds().intersects(Submarine.getGlobalBounds()))
 					{
 						instructions.setString("Submarine hit!");
-						hitShot.setPosition(targetShot.getPosition());
+						hitShot.setPosition(targetShot.getPosition());		//Submarine hit
 						hitShot.setShotStatus(true);
 						window.draw(hitShot);
 						targetShot.setShotStatus(false);
@@ -855,6 +856,7 @@ bool placeShot(int& hits, Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& 
 	return false;
 }
 
+//Same function as before but automated for computer random shot
 bool placeComputerShot(int& hits, Shot& targetShot, Shot& hitShot, Shot& missShot, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
     std::random_device rd; // obtain a random seed from the hardware
@@ -872,7 +874,7 @@ bool placeComputerShot(int& hits, Shot& targetShot, Shot& hitShot, Shot& missSho
     {
         hits++;
         instructions.setString("Carrier hit!");
-        hitShot.setPosition(targetShot.getPosition());
+        hitShot.setPosition(targetShot.getPosition());				//Carrier hit
         hitShot.setShotStatus(true);
         window.draw(hitShot);
         callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
@@ -883,7 +885,7 @@ bool placeComputerShot(int& hits, Shot& targetShot, Shot& hitShot, Shot& missSho
         hits++;
         instructions.setString("Destroyer hit!");
         hitShot.setPosition(targetShot.getPosition());
-        hitShot.setShotStatus(true);
+        hitShot.setShotStatus(true);					//Destroyer hit
         window.draw(hitShot);
         callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
         return true;
@@ -892,7 +894,7 @@ bool placeComputerShot(int& hits, Shot& targetShot, Shot& hitShot, Shot& missSho
     {
         hits++;
         instructions.setString("Battleship hit!");
-        hitShot.setPosition(targetShot.getPosition());
+        hitShot.setPosition(targetShot.getPosition());			//Battleship hit
         hitShot.setShotStatus(true);
         window.draw(hitShot);
         callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
@@ -903,7 +905,7 @@ bool placeComputerShot(int& hits, Shot& targetShot, Shot& hitShot, Shot& missSho
         hits++;
         instructions.setString("Cruiser hit!");
         hitShot.setPosition(targetShot.getPosition());
-        hitShot.setShotStatus(true);
+        hitShot.setShotStatus(true);					//Cruiser hit
         window.draw(hitShot);
         callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
         return true;
@@ -911,7 +913,7 @@ bool placeComputerShot(int& hits, Shot& targetShot, Shot& hitShot, Shot& missSho
     else if (targetShot.getGlobalBounds().intersects(Submarine.getGlobalBounds()))
     {
         hits++;
-        instructions.setString("Submarine hit!");
+        instructions.setString("Submarine hit!");			//Sub hit
         hitShot.setPosition(targetShot.getPosition());
         hitShot.setShotStatus(true);
         window.draw(hitShot);
@@ -922,7 +924,7 @@ bool placeComputerShot(int& hits, Shot& targetShot, Shot& hitShot, Shot& missSho
     {
         instructions.setString("Miss!");
         missShot.setPosition(targetShot.getPosition());
-        missShot.setShotStatus(true);
+        missShot.setShotStatus(true);				//Miss
         window.draw(missShot);
         callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
         return true;
