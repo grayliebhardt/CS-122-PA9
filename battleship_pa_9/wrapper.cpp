@@ -28,21 +28,21 @@ void gameWrapper(void)
 		{
 			if (menupick.type == sf::Event::Closed)
 			{
-				MENU.close();
+				MENU.close();				//Close
 			}
 			if (menupick.type == sf::Event::KeyReleased)
 			{
 				if (menupick.key.code == sf::Keyboard::Up)
 				{
-					mainMenu.MoveUp();
+					mainMenu.MoveUp();			//Up in menu
 					break;
 				}
-				if (menupick.key.code == sf::Keyboard::Down)
+				if (menupick.key.code == sf::Keyboard::Down)	//Down in menu
 				{
 					mainMenu.MoveDown();
 					break;
 				}
-				if (menupick.key.code == sf::Keyboard::Return)
+				if (menupick.key.code == sf::Keyboard::Return)	//Return
 				{
 					sf::RenderWindow Play(sf::VideoMode(1200, 800), "Play");
 					sf::RenderWindow ABOUT(sf::VideoMode(1200, 800), "ABOUT");
@@ -95,7 +95,7 @@ void gameWrapper(void)
 		}
 		MENU.clear();
 		MENU.draw(MainBackground);
-		mainMenu.draw(MENU);
+		mainMenu.draw(MENU);		//Clear
 		MENU.display();
 	}
 	
@@ -175,7 +175,7 @@ void gameWrapper(void)
 		//game
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed || cpuHitCounter >= 17 || userHitCounter > = 17)
+			if (event.type == sf::Event::Closed || cpuHitCounter >= 17 || userHitCounter > = 17)	//End if shots over 17
 				window.close();
 		}
 
