@@ -2,6 +2,103 @@
 
 void gameWrapper(void)
 {
+	//Creates Main Menu Window 
+	sf::RenderWindow MENU(sf::VideoMode(1200, 800), "Main Menu", sf::Style::Default);
+	MainMenu mainMenu(MENU.getSize().x, MENU.getSize().y);
+
+	//Main Menu Background
+	sf::RectangleShape MainBackground;
+	MainBackground.setSize(sf::Vector2f(1200, 800));
+	sf::Texture MainTexture;
+	MainTexture.loadFromFile("battleship cover.jpg");
+	MainBackground.setTexture(&MainTexture);
+
+	//About Option Background w/ Rules  
+	sf::RectangleShape AboutBackground;
+	AboutBackground.setSize(sf::Vector2f(1200, 800));
+	sf::Texture about_texture;
+	about_texture.loadFromFile("battleship rules.jpg");
+	AboutBackground.setTexture(&about_texture);
+
+	//Main Menu Options 
+	while (MENU.isOpen())
+	{
+		sf::Event menupick;
+		while (MENU.pollEvent(menupick))
+		{
+			if (menupick.type == sf::Event::Closed)
+			{
+				MENU.close();
+			}
+			if (menupick.type == sf::Event::KeyReleased)
+			{
+				if (menupick.key.code == sf::Keyboard::Up)
+				{
+					mainMenu.MoveUp();
+					break;
+				}
+				if (menupick.key.code == sf::Keyboard::Down)
+				{
+					mainMenu.MoveDown();
+					break;
+				}
+				if (menupick.key.code == sf::Keyboard::Return)
+				{
+					sf::RenderWindow Play(sf::VideoMode(1200, 800), "Play");
+					sf::RenderWindow ABOUT(sf::VideoMode(1200, 800), "ABOUT");
+					sf::RenderWindow EXIT(sf::VideoMode(1200, 800), "EXIT");
+
+					int x = mainMenu.MainMenuPressed();
+
+					//if Play option is picked
+					if (x == 0)
+					{
+						MENU.close();
+						break;
+					}
+
+					//if About option is picked 
+					if (x == 1)
+					{
+						while (ABOUT.isOpen())
+						{
+							sf::Event menupick;
+							while (ABOUT.pollEvent(menupick))
+							{
+								if (menupick.type == sf::Event::Closed)
+								{
+									ABOUT.close();
+								}
+								if (menupick.type == sf::Event::KeyPressed)
+								{
+									if (menupick.key.code == sf::Keyboard::Escape)
+									{
+										ABOUT.close();
+									}
+								}
+							}
+							Play.close();
+							ABOUT.clear();
+							ABOUT.draw(AboutBackground);
+							EXIT.close();
+							ABOUT.display();
+						}
+					}
+					//if Exit option is picked 
+					if (x == 2)
+					{
+						MENU.close();
+						exit(0);
+					}
+				}
+			}
+		}
+		MENU.clear();
+		MENU.draw(MainBackground);
+		mainMenu.draw(MENU);
+		MENU.display();
+	}
+	
   //Render background
 	sf::RenderWindow window(sf::VideoMode(1200, 800), "Battleship");
 	Ship Carrier(sf::Vector2f(30, 230), sf::Vector2f(60, 110)), Battleship(sf::Vector2f(30, 180), sf::Vector2f(60, 110)), Cruiser(sf::Vector2f(30, 130), sf::Vector2f(60, 110)), Submarine(sf::Vector2f(30, 130), sf::Vector2f(60, 110)), Destroyer(sf::Vector2f(30, 80), sf::Vector2f(60, 110));
