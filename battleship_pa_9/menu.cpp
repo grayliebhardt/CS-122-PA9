@@ -655,7 +655,7 @@ void placeSingleOpponentShip(Ship& ship)
 	}
 }
 
-bool placeShot(Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
+bool placeShot(int& hits, Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& Carrier, Ship& Battleship, Ship& Cruiser, Ship& Submarine, Ship& Destroyer, sf::RenderWindow& window, sf::Sprite background)
 {
 	sf::Font font;
 	font.loadFromFile("MachineStd.otf");
@@ -709,6 +709,7 @@ bool placeShot(Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& Carrier, Sh
 						window.draw(hitShot);
 						targetShot.setShotStatus(false);
 						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+						hits++;
 						return true;
 					}
 					else if (targetShot.getGlobalBounds().intersects(Destroyer.getGlobalBounds()))
@@ -717,6 +718,7 @@ bool placeShot(Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& Carrier, Sh
 						hitShot.setPosition(targetShot.getPosition());
 						hitShot.setShotStatus(true);
 						window.draw(hitShot);
+						hits++;
 
 						//not sure why its still drawing target shots permanently with this line of code
 						targetShot.setShotStatus(false);
@@ -731,6 +733,7 @@ bool placeShot(Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& Carrier, Sh
 						window.draw(hitShot);
 						targetShot.setShotStatus(false);
 						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+						hits++;
 						return true;
 					}
 					else if (targetShot.getGlobalBounds().intersects(Cruiser.getGlobalBounds()))
@@ -741,6 +744,7 @@ bool placeShot(Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& Carrier, Sh
 						window.draw(hitShot);
 						targetShot.setShotStatus(false);
 						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot);
+						hits++;
 						return true;
 					}
 					else if (targetShot.getGlobalBounds().intersects(Submarine.getGlobalBounds()))
@@ -751,6 +755,7 @@ bool placeShot(Shot& targetShot, Shot& hitShot, Shot&missShot, Ship& Carrier, Sh
 						window.draw(hitShot);
 						targetShot.setShotStatus(false);
 						callbackground(window, Carrier, Battleship, Cruiser, Submarine, Destroyer, background, targetShot, hitShot, missShot, targetShot, hitShot, missShot);
+						hits++;
 						return true;
 					}
 						
